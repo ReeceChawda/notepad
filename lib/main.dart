@@ -108,12 +108,6 @@ class NotePadAppState extends State<NotePadApp> {
     noteInput.clear();
   }
 
-  void deleteNotes() {
-    setState(() {
-      notes.removeWhere((note) => note.isDone);
-    });
-  }
-
   void editNote(Note note, int index) {
     TextEditingController editTitleController =
         TextEditingController(text: note.title);
@@ -188,6 +182,17 @@ class NotePadAppState extends State<NotePadApp> {
 
   @override
   Widget build(BuildContext context) {
+    //sorting system (star button)
+    notes.sort((a, b) {
+      if (a.isPriority && !b.isPriority) {
+        return -1;
+      } else if (!a.isPriority && b.isPriority) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Row(
@@ -220,25 +225,19 @@ class NotePadAppState extends State<NotePadApp> {
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 5,
-                  margin: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                   color: Colors.grey[800],
                   child: ListTile(
-                    selected: notes[index].isDone,
-                    onTap: () {
-                      setState(() {
-                        notes[index].isDone = !notes[index].isDone;
-                      });
-                    },
-                    leading: Checkbox(
-                      value: notes[index].isDone,
-                      onChanged: null,
-                    ),
-                    title: Text(
+                    contentPadding: const EdgeInsets.fromLTRB(25, 5, 0 ,10),
+                    title: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
+                      child: Text(
                       notes[index].title,
                       style: const TextStyle(
                         fontSize: 20,
                         color: Colors.teal,
                       ),
+                    ),
                     ),
                     subtitle: Text(
                       notes[index].text,
@@ -247,12 +246,77 @@ class NotePadAppState extends State<NotePadApp> {
                         color: Colors.grey[300],
                       ),
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.teal),
-                      onPressed: () {
-                        editNote(notes[index], index);
-                      },
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: notes[index].isPriority
+                              ? const Icon(Icons.star, color: Colors.amber)
+                              : const Icon(Icons.star_border),
+                          onPressed: () {
+                            setState(() {
+                              notes[index].isPriority =
+                                  !notes[index].isPriority;
+                            });
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.teal),
+                          onPressed: () {
+                            editNote(notes[index], index);
+                          },
+                        ),
+                      ],
                     ),
+                    onLongPress: () {
+                      // Show a confirmation dialog
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            backgroundColor: Colors.grey[900],
+                            content: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                              child: Text(
+                                "Are you sure you want to delete this note?",
+                                style: TextStyle(
+                                  color: Colors.grey[300],
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                child: Text(
+                                  "Cancel",
+                                  style: TextStyle(color: Colors.teal),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text(
+                                  "Delete",
+                                  style: TextStyle(color: Colors.teal),
+                                ),
+                                onPressed: () {
+                                  // Delete the note
+                                  setState(() {
+                                    notes.removeAt(index);
+                                  });
+                                  Navigator.of(context)
+                                      .pop(); // Close the dialog
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   ),
                 );
               },
@@ -264,7 +328,6 @@ class NotePadAppState extends State<NotePadApp> {
           children: [
             buildFloatingActionButton(Icons.note_add_sharp, noteBox),
             const SizedBox(width: 10),
-            buildFloatingActionButton(Icons.delete_sharp, deleteNotes),
           ],
         ),
       ),

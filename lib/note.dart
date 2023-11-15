@@ -1,7 +1,8 @@
 class Note {
   String title;
   String text;
-  bool isDone;
+  bool isPriority;
+  bool isSelected;
 
-  Note(this.title, this.text, {this.isDone = false});
+  Note(this.title, this.text, {this.isPriority =false, this.isSelected = false});
 }
