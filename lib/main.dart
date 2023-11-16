@@ -44,16 +44,16 @@ class NotePadAppState extends State<NotePadApp> {
                 TextField(
                   controller: titleInput,
                   decoration: const InputDecoration(
-                    labelText: "Title",
-                    labelStyle: TextStyle(color: Colors.grey),
+                    hintText: "Title",
+                    hintStyle: TextStyle(color: Colors.grey),
                   ),
                   style: TextStyle(color: Colors.grey[300]),
                 ),
                 TextField(
                   controller: noteInput,
                   decoration: const InputDecoration(
-                    labelText: "Note Text",
-                    labelStyle: TextStyle(color: Colors.grey),
+                    hintText: "Note Text",
+                    hintStyle: TextStyle(color: Colors.grey),
                   ),
                   style: TextStyle(color: Colors.grey[300]),
                   maxLines: null,
@@ -131,16 +131,16 @@ class NotePadAppState extends State<NotePadApp> {
                 TextField(
                   controller: editTitleController,
                   decoration: const InputDecoration(
-                    labelText: "Title",
-                    labelStyle: TextStyle(color: Colors.grey),
+                    hintText: "Title",
+                    hintStyle: TextStyle(color: Colors.grey),
                   ),
                   style: TextStyle(color: Colors.grey[300]),
                 ),
                 TextField(
                   controller: editNoteController,
                   decoration: const InputDecoration(
-                      labelText: "Note Text",
-                      labelStyle: TextStyle(color: Colors.grey)),
+                      hintText: "Note Text",
+                      hintStyle: TextStyle(color: Colors.grey)),
                   style: TextStyle(color: Colors.grey[300]),
                   maxLines: null,
                 ),
