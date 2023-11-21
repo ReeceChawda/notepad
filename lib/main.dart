@@ -152,8 +152,8 @@ class NotePadAppState extends State<NotePadApp> {
           ),
           backgroundColor: Colors.grey[900],
           child: Container(
-            width: 400,
-            padding: const EdgeInsets.all(16.0),
+            width: 600,
+            padding: const EdgeInsets.all(30.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -356,7 +356,16 @@ class NotePadAppState extends State<NotePadApp> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            buildFloatingActionButton(Icons.note_add_sharp, noteDialog),
+            Tooltip(
+              message: "Add Note",
+            textStyle: TextStyle(color: Colors.teal.withOpacity(0.8)),
+            decoration: BoxDecoration(
+                color: Colors.grey[850]?.withOpacity(0.8),
+              borderRadius: BorderRadius.circular(8)
+            ),
+            verticalOffset: 32,
+            child: buildFloatingActionButton(Icons.note_add_sharp, noteDialog),
+            ),
             const SizedBox(width: 10),
           ],
         ),
