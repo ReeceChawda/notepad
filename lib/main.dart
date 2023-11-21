@@ -47,9 +47,9 @@ class NotePadAppState extends State<NotePadApp> {
 
   Future<void> openBox() async {
     noteBox = await Hive.openBox<Note>('notes');
-    setState(() {
-      notes = noteBox.values.toList();
-    });
+      setState(() {
+        notes = noteBox.values.toList();
+      });
   }
 
   void noteDialog() {
@@ -212,15 +212,16 @@ class NotePadAppState extends State<NotePadApp> {
 
   @override
   Widget build(BuildContext context) {
-    notes.sort((a, b) {
-      if (a.isPriority && !b.isPriority) {
-        return -1;
-      } else if (!a.isPriority && b.isPriority) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
+    // notes.sort((a, b) {
+    //   if (a.isPriority && !b.isPriority) {
+    //     return -1;
+    //   } else if (!a.isPriority && b.isPriority) {
+    //     return 1;
+    //   } else {
+    //     return 0;
+    //   }
+    // });
+
 
     return Scaffold(
       appBar: AppBar(
