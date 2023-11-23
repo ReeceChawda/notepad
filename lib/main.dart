@@ -70,6 +70,9 @@ class NotePadAppState extends State<NotePadApp> {
                 TextField(
                   controller: titleInput,
                   decoration: const InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide (color: Colors.teal),
+                    ),
                     hintText: "Title",
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
@@ -78,6 +81,9 @@ class NotePadAppState extends State<NotePadApp> {
                 TextField(
                   controller: noteInput,
                   decoration: const InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide (color: Colors.teal),
+                    ),
                     hintText: "Note Text",
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
@@ -160,6 +166,9 @@ class NotePadAppState extends State<NotePadApp> {
                 TextField(
                   controller: editTitleController,
                   decoration: const InputDecoration(
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide (color: Colors.teal),
+                    ),
                     hintText: "Title",
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
@@ -168,6 +177,9 @@ class NotePadAppState extends State<NotePadApp> {
                 TextField(
                   controller: editNoteController,
                   decoration: const InputDecoration(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide (color: Colors.teal),
+                      ),
                       hintText: "Note Text",
                       hintStyle: TextStyle(color: Colors.grey)),
                   style: TextStyle(color: Colors.grey[300]),
