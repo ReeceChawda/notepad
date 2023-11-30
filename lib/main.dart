@@ -15,6 +15,7 @@ class NoteApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: NotePadApp(),
     );
   }
@@ -92,7 +93,7 @@ class NotePadAppState extends State<NotePadApp> {
                       borderSide:
                           BorderSide(color: Color.fromARGB(255, 235, 60, 0)),
                     ),
-                    hintText: "Note Text",
+                    hintText: "Text",
                     hintStyle:
                         TextStyle(color: Color.fromARGB(100, 235, 60, 0)),
                   ),
@@ -202,7 +203,7 @@ class NotePadAppState extends State<NotePadApp> {
                         borderSide:
                             BorderSide(color: Color.fromARGB(255, 235, 60, 0)),
                       ),
-                      hintText: "Note Text",
+                      hintText: "Text",
                       hintStyle:
                           TextStyle(color: Color.fromARGB(100, 235, 60, 0))),
                   style: const TextStyle(
