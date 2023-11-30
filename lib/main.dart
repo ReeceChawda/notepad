@@ -47,11 +47,12 @@ class NotePadAppState extends State<NotePadApp> {
 
   Future<void> openBox() async {
     noteBox = await Hive.openBox<Note>('notes');
-      setState(() {
-        notes = noteBox.values.toList();
-      });
+    setState(() {
+      notes = noteBox.values.toList();
+    });
   }
 
+// Main note
   void noteDialog() {
     showDialog(
       context: context,
@@ -59,8 +60,9 @@ class NotePadAppState extends State<NotePadApp> {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
+            side: const BorderSide(color: Color.fromARGB(200, 0, 0, 0), width: 3),
           ),
-          backgroundColor: Colors.grey[900],
+          backgroundColor: const Color.fromARGB(255, 255, 252, 242),
           child: Container(
             width: 600,
             padding: const EdgeInsets.all(30.0),
@@ -71,23 +73,33 @@ class NotePadAppState extends State<NotePadApp> {
                   controller: titleInput,
                   decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide (color: Colors.teal),
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 235, 60, 0)),
                     ),
                     hintText: "Title",
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(100, 64, 61, 57)),
                   ),
-                  style: TextStyle(color: Colors.grey[300]),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 64, 61, 57),
+                      fontWeight: FontWeight.w900,
+                      fontSize: 20),
                 ),
                 TextField(
                   controller: noteInput,
                   decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide (color: Colors.teal),
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 235, 60, 0)),
                     ),
                     hintText: "Note Text",
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(100, 235, 60, 0)),
                   ),
-                  style: TextStyle(color: Colors.grey[300]),
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 235, 60, 0),
+                    fontWeight: FontWeight.w200,
+                  ),
                   maxLines: null,
                 ),
                 const SizedBox(height: 16),
@@ -97,7 +109,8 @@ class NotePadAppState extends State<NotePadApp> {
                     TextButton(
                       child: const Text(
                         "Cancel",
-                        style: TextStyle(color: Colors.teal),
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 235, 60, 0)),
                       ),
                       onPressed: () {
                         clearControllers();
@@ -107,7 +120,8 @@ class NotePadAppState extends State<NotePadApp> {
                     TextButton(
                       child: const Text(
                         "Add",
-                        style: TextStyle(color: Colors.teal),
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 235, 60, 0)),
                       ),
                       onPressed: () {
                         addNote();
@@ -148,15 +162,16 @@ class NotePadAppState extends State<NotePadApp> {
     TextEditingController editNoteController =
         TextEditingController(text: note.text);
 
-
+//Edit note
     showDialog(
       context: context,
       builder: (context) {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
+            side: const BorderSide(color: Color.fromARGB(200, 0, 0, 0), width: 3),
           ),
-          backgroundColor: Colors.grey[900],
+          backgroundColor: const Color.fromARGB(255, 255, 252, 242),
           child: Container(
             width: 600,
             padding: const EdgeInsets.all(30.0),
@@ -167,22 +182,32 @@ class NotePadAppState extends State<NotePadApp> {
                   controller: editTitleController,
                   decoration: const InputDecoration(
                     focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide (color: Colors.teal),
+                      borderSide:
+                          BorderSide(color: Color.fromARGB(255, 235, 60, 0)),
                     ),
                     hintText: "Title",
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle:
+                        TextStyle(color: Color.fromARGB(100, 64, 61, 57)),
                   ),
-                  style: TextStyle(color: Colors.grey[300]),
+                  style: const TextStyle(
+                    color: Color.fromARGB(255, 64, 61, 57),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 20,
+                  ),
                 ),
                 TextField(
                   controller: editNoteController,
                   decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide (color: Colors.teal),
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 235, 60, 0)),
                       ),
                       hintText: "Note Text",
-                      hintStyle: TextStyle(color: Colors.grey)),
-                  style: TextStyle(color: Colors.grey[300]),
+                      hintStyle:
+                          TextStyle(color: Color.fromARGB(100, 235, 60, 0))),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 235, 60, 0),
+                      fontWeight: FontWeight.w200),
                   maxLines: null,
                 ),
                 const SizedBox(height: 16),
@@ -192,7 +217,8 @@ class NotePadAppState extends State<NotePadApp> {
                     TextButton(
                       child: const Text(
                         "Cancel",
-                        style: TextStyle(color: Colors.teal),
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 235, 60, 0)),
                       ),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -201,7 +227,8 @@ class NotePadAppState extends State<NotePadApp> {
                     TextButton(
                       child: const Text(
                         "Save",
-                        style: TextStyle(color: Colors.teal),
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 235, 60, 0)),
                       ),
                       onPressed: () {
                         setState(() {
@@ -234,31 +261,31 @@ class NotePadAppState extends State<NotePadApp> {
     //   }
     // });
 
-
+//Main page
     return Scaffold(
       appBar: AppBar(
         title: const Row(
           children: <Widget>[
-            Icon(Icons.folder, color: Colors.teal),
+            Icon(Icons.folder, color: Color.fromARGB(255, 64, 61, 57)),
             SizedBox(width: 10),
             Text("Notes",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.teal,
+                  color: Color.fromARGB(255, 255, 252, 242),
                 )),
           ],
         ),
-        backgroundColor: Colors.grey[850],
+        backgroundColor: const Color.fromARGB(255, 235, 60, 0),
         elevation: 5,
       ),
-      backgroundColor: Colors.grey[900],
+      backgroundColor: const Color.fromARGB(255, 64, 61, 57),
       body: notes.isEmpty
-          ? Center(
+          ? const Center(
               child: Text(
                 "No notes yet.",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.grey[800],
+                  color: Color.fromARGB(50, 255, 255, 255),
                 ),
               ),
             )
@@ -269,7 +296,11 @@ class NotePadAppState extends State<NotePadApp> {
                   key: UniqueKey(),
                   elevation: 5,
                   margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                  color: Colors.grey[800],
+                  color: const Color.fromARGB(255, 255, 252, 242),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: const BorderSide(
+                          color: Color.fromARGB(200, 0, 0, 0), width: 3)),
                   child: ListTile(
                     contentPadding: const EdgeInsets.fromLTRB(25, 5, 0, 10),
                     title: Padding(
@@ -277,25 +308,27 @@ class NotePadAppState extends State<NotePadApp> {
                       child: Text(
                         notes[index].title,
                         style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.teal,
-                        ),
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 64, 61, 57),
+                            fontWeight: FontWeight.w900),
                       ),
                     ),
                     subtitle: Text(
                       notes[index].text,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[300],
-                      ),
+                      style: const TextStyle(
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 235, 60, 0),
+                          fontWeight: FontWeight.w200),
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
                           icon: notes[index].isPriority
-                              ? const Icon(Icons.star, color: Colors.amber)
-                              : const Icon(Icons.star_border),
+                              ? const Icon(Icons.star,
+                                  color: Color.fromARGB(255, 235, 60, 0))
+                              : const Icon(Icons.star_border,
+                                  color: Color.fromARGB(255, 64, 61, 57)),
                           onPressed: () {
                             setState(() {
                               notes[index].isPriority =
@@ -305,7 +338,8 @@ class NotePadAppState extends State<NotePadApp> {
                           },
                         ),
                         IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.teal),
+                          icon: const Icon(Icons.edit,
+                              color: Color.fromARGB(255, 235, 60, 0)),
                           onPressed: () {
                             editNote(notes[index], index);
                           },
@@ -318,15 +352,17 @@ class NotePadAppState extends State<NotePadApp> {
                         builder: (context) {
                           return AlertDialog(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            backgroundColor: Colors.grey[900],
-                            content: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: Color.fromARGB(255, 235, 60, 0))),
+                            backgroundColor: const Color.fromARGB(255, 255, 252, 242),
+                            content: const Padding(
+                              padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
                               child: Text(
                                 "Are you sure you want to delete this note?",
                                 style: TextStyle(
-                                  color: Colors.grey[500],
+                                  color: Color.fromARGB(255, 64, 61, 57),
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                 ),
                               ),
@@ -335,7 +371,8 @@ class NotePadAppState extends State<NotePadApp> {
                               TextButton(
                                 child: const Text(
                                   "Cancel",
-                                  style: TextStyle(color: Colors.teal),
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 235, 60, 0)),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
@@ -344,7 +381,8 @@ class NotePadAppState extends State<NotePadApp> {
                               TextButton(
                                 child: const Text(
                                   "Delete",
-                                  style: TextStyle(color: Colors.teal),
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 235, 60, 0)),
                                 ),
                                 onPressed: () {
                                   setState(() {
@@ -370,13 +408,13 @@ class NotePadAppState extends State<NotePadApp> {
           children: [
             Tooltip(
               message: "Add Note",
-            textStyle: TextStyle(color: Colors.teal.withOpacity(0.8)),
-            decoration: BoxDecoration(
-                color: Colors.grey[850]?.withOpacity(0.8),
-              borderRadius: BorderRadius.circular(8)
-            ),
-            verticalOffset: 32,
-            child: buildFloatingActionButton(Icons.note_add_sharp, noteDialog),
+              textStyle: const TextStyle(color: Color.fromARGB(150, 235, 60, 0)),
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(200, 255, 252, 242),
+                  borderRadius: BorderRadius.circular(8)),
+              verticalOffset: 32,
+              child:
+                  buildFloatingActionButton(Icons.note_add_sharp, noteDialog),
             ),
             const SizedBox(width: 10),
           ],
@@ -391,17 +429,18 @@ class NotePadAppState extends State<NotePadApp> {
     super.dispose();
   }
 
+//add button
   Widget buildFloatingActionButton(IconData icon, onPressed) {
     return FloatingActionButton(
       onPressed: onPressed,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
+          borderRadius: BorderRadius.circular(10.0),
+          side: const BorderSide(color: Color.fromARGB(255, 64, 61, 57), width: 2)),
       elevation: 5,
-      backgroundColor: Colors.grey[850],
+      backgroundColor: const Color.fromARGB(200, 255, 252, 242),
       child: Icon(
         icon,
-        color: Colors.teal,
+        color: const Color.fromARGB(255, 235, 60, 0),
       ),
     );
   }
