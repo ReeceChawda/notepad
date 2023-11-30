@@ -12,7 +12,6 @@ A Flutter project to store notes.
 - Prioritise Notes
 
 ---
-![](C:\Users\up2119131\IdeaProjects\notepad\Notes-screenshot.PNG)
 
 ## Getting Started
 A few resources to get you started if this is your first Flutter project:
