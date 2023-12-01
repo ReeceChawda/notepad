@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 import 'note.dart';
 
@@ -61,7 +62,8 @@ class NotePadAppState extends State<NotePadApp> {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
-            side: const BorderSide(color: Color.fromARGB(200, 0, 0, 0), width: 3),
+            side:
+                const BorderSide(color: Color.fromARGB(200, 0, 0, 0), width: 3),
           ),
           backgroundColor: const Color.fromARGB(255, 255, 252, 242),
           child: Container(
@@ -143,9 +145,12 @@ class NotePadAppState extends State<NotePadApp> {
   void addNote() {
     String noteTitle = titleInput.text;
     String noteText = noteInput.text;
+    DateTime currentDate = DateTime.now();
+
     if (noteTitle.isNotEmpty || noteText.isNotEmpty) {
       setState(() {
-        noteBox.add(Note(noteTitle, noteText));
+        noteBox
+            .add(Note(noteTitle, noteText, date: currentDate)); // Pass the date
         notes = noteBox.values.toList();
         clearControllers();
       });
@@ -170,7 +175,8 @@ class NotePadAppState extends State<NotePadApp> {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
-            side: const BorderSide(color: Color.fromARGB(200, 0, 0, 0), width: 3),
+            side:
+                const BorderSide(color: Color.fromARGB(200, 0, 0, 0), width: 3),
           ),
           backgroundColor: const Color.fromARGB(255, 255, 252, 242),
           child: Container(
@@ -235,6 +241,7 @@ class NotePadAppState extends State<NotePadApp> {
                         setState(() {
                           notes[index].title = editTitleController.text;
                           notes[index].text = editNoteController.text;
+                          notes[index].date = DateTime.now();
                           noteBox.putAt(index, notes[index]);
                         });
                         Navigator.of(context).pop();
@@ -265,15 +272,27 @@ class NotePadAppState extends State<NotePadApp> {
 //Main page
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: <Widget>[
-            Icon(Icons.folder, color: Color.fromARGB(255, 64, 61, 57)),
-            SizedBox(width: 10),
-            Text("Notes",
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Image.asset(
+                'assets/astro_icon3.png',
+                height: 38,
+                width: 38,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
+              child: Text(
+                "AstroNotes",
                 style: TextStyle(
-                  fontSize: 30,
-                  color: Color.fromARGB(255, 255, 252, 242),
-                )),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+            ),
           ],
         ),
         backgroundColor: const Color.fromARGB(255, 235, 60, 0),
@@ -282,12 +301,29 @@ class NotePadAppState extends State<NotePadApp> {
       backgroundColor: const Color.fromARGB(255, 64, 61, 57),
       body: notes.isEmpty
           ? const Center(
-              child: Text(
-                "No notes yet.",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Color.fromARGB(50, 255, 255, 255),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Flexible(
+                    child: Text(
+                      "Houston, we have a problem...\nNo notes yet!\n",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color.fromARGB(250, 0, 0, 0),
+                      ),
+                    ),
+                  ),
+                  Opacity(
+                    opacity: 0.6,
+                    child: Image(
+                      image: AssetImage('assets/astro.png'),
+                      height: 300,
+                      width: 300,
+                    ),
+                  ),
+                ],
               ),
             )
           : ListView.builder(
@@ -309,17 +345,36 @@ class NotePadAppState extends State<NotePadApp> {
                       child: Text(
                         notes[index].title,
                         style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 24,
                             color: Color.fromARGB(255, 64, 61, 57),
                             fontWeight: FontWeight.w900),
                       ),
                     ),
-                    subtitle: Text(
-                      notes[index].text,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          color: Color.fromARGB(255, 235, 60, 0),
-                          fontWeight: FontWeight.w200),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(3, 0, 0, 0),
+                          child: Text(
+                            notes[index].text,
+                            style: const TextStyle(
+                                fontSize: 16,
+                                color: Color.fromARGB(255, 235, 60, 0),
+                                fontWeight: FontWeight.w200),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(3, 10, 0, 0),
+                          child: Text(
+                            DateFormat('dd/MM\nH:mm a')
+                                .format(notes[index].date.toLocal()),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Color.fromARGB(255, 64, 61, 57),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -330,6 +385,7 @@ class NotePadAppState extends State<NotePadApp> {
                                   color: Color.fromARGB(255, 235, 60, 0))
                               : const Icon(Icons.star_border,
                                   color: Color.fromARGB(255, 64, 61, 57)),
+                          padding: const EdgeInsets.fromLTRB(0, 3, 0, 0),
                           onPressed: () {
                             setState(() {
                               notes[index].isPriority =
@@ -341,6 +397,7 @@ class NotePadAppState extends State<NotePadApp> {
                         IconButton(
                           icon: const Icon(Icons.edit,
                               color: Color.fromARGB(255, 235, 60, 0)),
+                          padding: const EdgeInsets.fromLTRB(0, 3, 20, 0),
                           onPressed: () {
                             editNote(notes[index], index);
                           },
@@ -356,7 +413,8 @@ class NotePadAppState extends State<NotePadApp> {
                                 borderRadius: BorderRadius.circular(15.0),
                                 side: const BorderSide(
                                     color: Color.fromARGB(255, 235, 60, 0))),
-                            backgroundColor: const Color.fromARGB(255, 255, 252, 242),
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 252, 242),
                             content: const Padding(
                               padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
                               child: Text(
@@ -409,7 +467,8 @@ class NotePadAppState extends State<NotePadApp> {
           children: [
             Tooltip(
               message: "Add Note",
-              textStyle: const TextStyle(color: Color.fromARGB(150, 235, 60, 0)),
+              textStyle:
+                  const TextStyle(color: Color.fromARGB(150, 235, 60, 0)),
               decoration: BoxDecoration(
                   color: const Color.fromARGB(200, 255, 252, 242),
                   borderRadius: BorderRadius.circular(8)),
@@ -436,7 +495,8 @@ class NotePadAppState extends State<NotePadApp> {
       onPressed: onPressed,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          side: const BorderSide(color: Color.fromARGB(255, 64, 61, 57), width: 2)),
+          side: const BorderSide(
+              color: Color.fromARGB(255, 64, 61, 57), width: 2)),
       elevation: 5,
       backgroundColor: const Color.fromARGB(200, 255, 252, 242),
       child: Icon(

@@ -11,12 +11,14 @@ class Note {
   String text;
 
   @HiveField(2)
-  bool isPriority;
+  DateTime date;
 
   @HiveField(3)
+  bool isPriority;
+
+  @HiveField(4)
   bool isSelected;
 
-  Note(this.title, this.text, {this.isPriority = false, this.isSelected = false});
+  Note(this.title, this.text,
+      {required this.date, this.isPriority = false, this.isSelected = false});
 }
-
-
