@@ -61,8 +61,6 @@ dev_dependencies:
 flutter:
   assets:
     - assets/astro.png
-    - assets/astro_icon.png
-    - assets/astro_icon2.png
     - assets/astro_icon3.png
 
   # The following line ensures that the Material Icons font is
